@@ -1,0 +1,26 @@
+# Edge Crew AI Worker
+# Long-running container that polls Supabase model_jobs and runs the AI
+# analysis pipeline. Built from the same Python artifacts as the monolith.
+
+FROM python:3.11-slim
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app/ ./app/
+COPY grade_engine.py ./grade_engine.py
+COPY data_fetch.py ./data_fetch.py
+COPY data_fetch_mlb.py ./data_fetch_mlb.py
+COPY ai_models.py ./ai_models.py
+COPY dynamic_weights.py ./dynamic_weights.py
+COPY forecaster_scoring.py ./forecaster_scoring.py
+COPY filter_mastermind.py ./filter_mastermind.py
+
+ENV PYTHONUNBUFFERED=1
+ENV AI_WORKER_POLL_INTERVAL=5
+ENV AI_WORKER_JOB_TIMEOUT=600
+
+CMD ["python", "app/ai_worker.py"]

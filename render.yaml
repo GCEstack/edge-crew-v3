@@ -1,0 +1,69 @@
+# Edge Crew v3.0 — Containerized AI Worker
+# This service runs the long-running 19-model AI crowdsource pipeline.
+# It polls the Supabase model_jobs table and persists results back to Postgres.
+# Frontend, API routes, auth, cron, and realtime live on Vercel + Supabase.
+
+services:
+  - type: worker
+    name: edge-crew-ai-worker
+    runtime: docker
+    dockerfilePath: ./Dockerfile.worker
+    plan: standard
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      # Supabase project credentials
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      # Worker tuning
+      - key: AI_WORKER_POLL_INTERVAL
+        value: "5"
+      - key: AI_WORKER_JOB_TIMEOUT
+        value: "600"
+      # AI provider keys — all sync: false to prevent Render yaml reconcile from wiping keys
+      - key: AZURE_SWEDEN_KEY
+        sync: false
+      - key: AZURE_AI_KEY
+        sync: false
+      - key: AZURE_AI_ENDPOINT
+        value: https://peter-mna31gr3-swedencentral.services.ai.azure.com/openai/v1/
+      - key: AZURE_NC_KEY
+        sync: false
+      - key: AZURE_GCE_KEY
+        sync: false
+      - key: AZURE_AI_PETERWILSON_KEY
+        sync: false
+      - key: ODDS_API_KEY_PAID
+        sync: false
+      - key: ODDS_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: MOONSHOT_API_KEY
+        sync: false
+      - key: SPORTSGAMEODDS_KEY
+        sync: false
+      - key: API_SPORTS_KEY
+        sync: false
+      - key: RAPIDAPI_KEY
+        sync: false
+      - key: BALLDONTLIE_API_KEY
+        sync: false
+      - key: THINKER_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_KEY
+        sync: false
+      - key: AZURE_OPENAI_MODEL
+        sync: false
+      - key: ANALYSIS_THINKER
+        sync: false
+      - key: ANALYSIS_FORMATTER
+        sync: false

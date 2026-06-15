@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+web/.env
+web/.env.local
+web/.env.*.local
+mobile/.env
+mobile/.env.local
+
+# Node / Vite
+node_modules/
+web/dist/
+web/.vite/
+
+# Supabase
+.supabase/
+
+# Flutter / Mobile
+.flutter/
+.android-sdk/
+mobile/.dart_tool/
+mobile/.packages
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.metadata
+mobile/build/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/android/.gradle/
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+*.jks
+key.properties
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+.peter_token
